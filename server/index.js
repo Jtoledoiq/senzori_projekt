@@ -8,7 +8,7 @@ var mysql = require('mysql');
 var con = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "0989875212Ml.",
+  password: "",
   database:"martina_project"
 });
 
@@ -25,11 +25,11 @@ app.use(bodyParser.urlencoded({
 
 app.get('/getAllSenzor/', (req, res) => {
     con.query("SELECT * FROM senzori", function (err, result) {
-      console.log(result); 
+      console.log(result);
       res.send(result)
      });
 })
-  
+
 app.post ('/brisatiSenzor/', (req, res) => {
   const ID=req.body.id;
   console.log(ID);
@@ -44,7 +44,7 @@ app.post('/dodati/', (req, res) => {
   const temp=req.body.temp
   const vlaznost =req.body.vlaznost
   const tlak =req.body.tlak
- 
+
 
   console.log(req.body)
   var sql = "INSERT INTO senzori (temp,vlaznost,tlak) VALUES (?,?,?);";
@@ -60,7 +60,7 @@ app.post('/dodati/', (req, res) => {
 
 app.get('/api/', (req, res) => {
    con.query("SELECT * FROM users", function (err, result) {
-     console.log(result); 
+     console.log(result);
      res.send(result)
     });
   })
@@ -70,8 +70,8 @@ app.post('/user/', (req, res) => {
     const ID =req.body.id
     console.log(req.body)
     con.query("SELECT * FROM users WHERE id=?", [ID], function (err, result) {
- 
-       console.log(result); 
+
+       console.log(result);
        res.send(result);
 
      });
@@ -81,7 +81,7 @@ app.get('/getAllUsers/', (req, res) => {
 
   console.log("Getting all users");
   con.query("SELECT * FROM users", function (err, result) {
-    console.log(result); 
+    console.log(result);
     res.send(result)
    });
  })
@@ -93,7 +93,7 @@ app.post('/user1/', (req, res) => {
   const prezime1 =req.body.lastName
   const pass1 =req.body.pass
   const mail1 =req.body.mail
-  const role1 =req.body.role 
+  const role1 =req.body.role
 
   console.log(req.body)
   var sql = "INSERT INTO users (FirstName,LastName,mail,pass,role) VALUES (?,?,?,?,?);";
@@ -119,7 +119,7 @@ app.post ('/brisi/', (req, res) => {
 app.post ('/brisati/', (req, res) => {
   const ID=req.body.id;
   console.log(ID);
-  
+
   var sql = "DELETE FROM users where id=?";
   con.query(sql, [ID],function (err, result) {
     if (err) throw err;
@@ -144,7 +144,7 @@ app.listen(3004, () => {
 
 app.get('/nov/', (req, res) => {
   con.query("SELECT * FROM users WHERE id=1", function (err, result) {
-    console.log(result); 
+    console.log(result);
     res.send(result)
   });
 })
@@ -152,7 +152,7 @@ app.get('/nov/', (req, res) => {
 app.get('/mj/', (req, res) => {
   console.log("Connected!");
   con.query("Update  users SET  pass='eeeeeee' WHERE id=1;", function (err, result) {
-    console.log(result); 
+    console.log(result);
     res.send(result);
   });
 })
