@@ -1,0 +1,10 @@
+.containerSet{
+    margin:10px;
+    font-size: medium;
+    font-family:Arial, Helvetica, sans-serif ;
+    display: flex;
+    flex-direction:column;
+   
+    color: rgb(130, 103, 192);
+
+}

@@ -1,0 +1,11 @@
+.containerNav{
+    margin:10px;
+    text-align: center;
+    font-size: medium;
+    font-family:Arial, Helvetica, sans-serif ;
+    display: flex;
+    flex-direction:row;
+    justify-content: space-around;
+    color: rgb(130, 103, 192);
+    background-color: lightgray;
+}
