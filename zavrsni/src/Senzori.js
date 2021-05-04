@@ -39,6 +39,7 @@ function Home() {
   useEffect(() => {
       getAllSenzor();
       console.log(allSenzor)
+      document.getElementById("graf").style.display= "none";
       
   }, []);
 
@@ -170,7 +171,7 @@ const displaySenzors = allSenzor.map((senzori1, index) =>
               
 
         </div>
-        <div  className="inputButtonHome">
+        <div  className="form_add_user">
       <input  className="input"
         type="text" 
         name="senzortemp"
@@ -200,10 +201,10 @@ const displaySenzors = allSenzor.map((senzori1, index) =>
          }} />
 
       <button 
-      className="button" 
+      className="button new_user" 
       onClick={()=>{
         dodati();
-        }}>+</button> 
+        }}>Dodaj</button> 
         
          </div>   
           <div id="lista">
