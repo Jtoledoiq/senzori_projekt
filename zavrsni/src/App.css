@@ -1,0 +1,32 @@
+.menu {
+    background-color: #4580a6;
+    height: 90px;
+}
+
+.button-menu{
+    height: 40px;
+    padding: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.brand {
+    color: #FFFFFF;
+    font-size: 27px;
+    font-weight: 700;
+}
+.button-menu button {
+    font-size: 1em;
+    font-weight: bold;
+    color: white;
+    transition: 0.5s;
+    padding: 0.5em;
+    background: none;
+    border: 2px solid;
+    border-radius: 11px;
+}
+
+.list-menu{
+    height: 40px;
+    padding-bottom: 5px;
+}

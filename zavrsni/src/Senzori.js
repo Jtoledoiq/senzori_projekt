@@ -158,6 +158,22 @@ const displaySenzors = allSenzor.map((senzori1, index) =>
 
     return (
     <div className="bodySenzor">
+      <div className="menuLists">
+        <ul>
+        {allSenzor.map((sensor, index) => {
+          return(
+            <li 
+              id={sensor["unique_id"]}
+              onClick={()=>{
+                console.log(sensor["unique_id"])
+              }}
+            >{sensor["name_senzor"]} {sensor["unique_id"]}</li>
+            )
+          })}
+        </ul>
+        
+
+      </div>
       <div className="containerHome">
         <div className="opcije">
             <a id="slovaLista"  onClick={()=>lista()}>
@@ -171,42 +187,7 @@ const displaySenzors = allSenzor.map((senzori1, index) =>
               
 
         </div>
-        <div  className="form_add_user">
-      <input  className="input"
-        type="text" 
-        name="senzortemp"
-        placeholder="Unesite temperatur" 
-        value={temperatura}
-        onChange={e => {
-        setTempertaura(e.target.value) ; 
-         }} />
-
-      <input  className="input"
-        type="text" 
-        name="senzorvlaz"
-        placeholder="Unesite vlaznost" 
-        value={vlaznost}
-        onChange={e => {
-        setVlaznost(e.target.value) ; 
-         }} />
-      
-      
-        <input className="input"
-        type="text" 
-        name="senzortlak"
-        placeholder="Unesite tlak" 
-        value={tlak}
-        onChange={e => {
-        setTlak(e.target.value) ;
-         }} />
-
-      <button 
-      className="button new_user" 
-      onClick={()=>{
-        dodati();
-        }}>Dodaj</button> 
-        
-         </div>   
+           
           <div id="lista">
           {displaySenzors}  
           </div>
