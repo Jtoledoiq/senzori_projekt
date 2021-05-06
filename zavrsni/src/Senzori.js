@@ -15,7 +15,9 @@ function Home() {
     const [valueIme,setValueIme]= useState('');
     const [valueLokacija,setValueLokacija]= useState('');
     const [allSenzor,setAllSenzor]=useState([]);
-
+    const [sensorToBeShown, setSensorToBeShown]=useState([]);
+    const [date, setDate] = useState("")
+    const [formatedDate, setFormatedDate] = useState("")
     /*const dodaj=()=>{
       let lista =[...list];
       if(senzorIme==0)
@@ -37,10 +39,17 @@ function Home() {
     } */
 
   useEffect(() => {
+
       getAllSenzor();
       console.log(allSenzor)
       document.getElementById("graf").style.display= "none";
-      
+
+      getSensorData(7, "20210505")
+
+      const currentDateTime = new Date()
+      const correctMonth =currentDateTime.getMonth()+1
+      setFormatedDate(currentDateTime.getFullYear() + " " + correctMonth + " " + currentDateTime.getDate());
+      setDate(currentDateTime)
   }, []);
 
   const refreshSenzor=()=>{
@@ -96,15 +105,6 @@ const dodati=()=>{
 }
 
 
-const displaySenzors = allSenzor.map((senzori1, index) =>
-          <div className="inputButtonHome">   
-            <div className="senzorInformation">
-              <a className="bold">Senzor {index + 1}</a> temp= {senzori1.temp} vlaznost={senzori1.vlaznost} tlak={senzori1.tlak} 
-            </div>  
-            <button className= "button" onClick={()=>brisati(senzori1.id)}>X</button> 
-      
-          </div> )
-    
    
    /* const uredi=(id)=>{
        let novaLista=[...list];
@@ -155,6 +155,55 @@ const displaySenzors = allSenzor.map((senzori1, index) =>
         document.getElementById("slovaGraf").style.color="rgb(94, 21, 81)";
    }
    
+   const getSensorData = (id, data) => {
+     fetch('http://localhost:3004/getSensorData/',{
+      method:'POST',
+      headers:{
+          'Content-Type':'application/json',
+      },
+      body: JSON.stringify({id:id, data: data})
+  })
+  .then(response => response.json())
+  .then(data => setSensorToBeShown(data));
+  console.log(sensorToBeShown)
+  displaySenzorData()
+  
+}
+
+const displaySenzorData = () => {
+     return (
+       <div className="sensor-table">
+                      <div className="sensor-row">
+                <div className="tip title">TIP</div>
+              
+              <div className="value_entered title">VALUE</div>
+
+              
+              <div className="unit title">UNIT</div>
+              </div>
+         {sensorToBeShown.map((sensor,index)=>{
+           return(
+             
+             <div className="sensor-row">
+
+
+               <div className="tip">{sensor["tip"]}</div>
+             
+              <div className="value_entered">{sensor["value_entered"]}</div>
+
+              
+              <div className="unit">{sensor["unit"]}</div>
+
+
+             </div>
+           )
+         })}
+       </div>
+     )
+
+   }
+
+
 
     return (
     <div className="bodySenzor">
@@ -165,7 +214,7 @@ const displaySenzors = allSenzor.map((senzori1, index) =>
             <li 
               id={sensor["unique_id"]}
               onClick={()=>{
-                console.log(sensor["unique_id"])
+                getSensorData(sensor["unique_id"], "20210505")
               }}
             >{sensor["name_senzor"]} {sensor["unique_id"]}</li>
             )
@@ -182,15 +231,38 @@ const displaySenzors = allSenzor.map((senzori1, index) =>
             <a id="slovaGraf"onClick={()=>graf()} >
               Graf
             </a>
-          
-             
-              
-
         </div>
-           
-          <div id="lista">
-          {displaySenzors}  
-          </div>
+        <div className="arrows">
+          <div className="arrow-left"
+            onClick={()=>{
+
+              let currentDateTime = date
+              currentDateTime.setDate(currentDateTime.getDate()-1)
+              setFormatedDate(currentDateTime.getFullYear() + " " + currentDateTime.getMonth() +1 + " " + currentDateTime.getDate());
+              console.log(formatedDate)
+
+            }}
+          ></div>
+          <div className="date">{formatedDate}</div>
+          <div className="arrow-right"
+          
+          onClick={()=>{
+
+            
+            let currentDateTime = date
+            const correctMonth =currentDateTime.getMonth()
+            currentDateTime.setDate(currentDateTime.getDate())
+            setFormatedDate(currentDateTime.getFullYear() + " " + correctMonth + " " + currentDateTime.getDate());
+            setDate(currentDateTime)
+      
+
+
+          }}></div>
+        </div>
+        <div id="lista">
+             {displaySenzorData()}  
+        </div>
+
         <div id="graf" className="graf">
            dhfghfh
         </div>

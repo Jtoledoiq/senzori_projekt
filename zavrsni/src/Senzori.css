@@ -67,6 +67,34 @@
   
   }
 
+  .arrows{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-around;
+  }
+  .arrow-right {
+    width: 0; 
+    height: 0; 
+    border-top: 20px solid transparent;
+    border-bottom: 20px solid transparent;
+
+    border-left: 20px solid blue;
+    cursor: pointer;
+  }
+  
+  .arrow-left {
+    width: 0; 
+    height: 0; 
+    border-top: 20px solid transparent;
+    border-bottom: 20px solid transparent; 
+    
+    border-right:20px solid blue; 
+    cursor: pointer;
+  }
+  .date{
+      font-size: 18px;
+  }
   .form_add_user {
     text-align: center;
     margin-bottom: 20px;
@@ -79,13 +107,34 @@
     height: 100vh;
     display: flex;
     flex-direction: column;
-    background-color: rgb(195, 137, 201);
+    background-color: white;
     color: rgb(94, 21, 81);
-   
+    
     font-family:Arial, Helvetica, sans-serif;
   }
   .menuLists {
+    background-color: rgb(236, 240, 241);
     width:20%;
+    margin: 0;
+  }
+  .menuLists ul{
+    list-style-type:none;
+    padding: 0;
+    margin: 0;
+    
+  }
+  .menuLists ul li{
+    width:100%;
+    height: 40px;
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+ .menuLists ul li:hover{
+    background-color: lightblue;
   }
   .bodySenzor{
     display: flex;
@@ -108,6 +157,33 @@
     background-color: rgb(103, 85, 105);
   }
 
+  .sensor-table{
+   
+    border-top: 2px solid;
+    margin:10px
+  }
+
+  .sensor-row{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    border-right:2px solid;
+  }
+
+  .tip, .value_entered, .unit{
+    border-left:2px solid;
+    border-bottom:2px solid;
+    width:33%;
+    padding:8px;
+    text-align: center;
+    background-color: #4580a61c;
+
+  }
+
+
+  .title {
+    background-color: #4580a670;
+  }
   @media only screen and (max-width: 640px) {
     .inputButtonHome {
       font-size: 13px;

@@ -7,9 +7,9 @@ var mysql = require('mysql');
 
 var con = mysql.createConnection({
   host: "localhost",
-  user: "root",
-  password: "",
-  database:"martina_project"
+  user: "freeman",
+  password: "Cfreeman6525515851!",
+  database:"martina_database"
 });
 
 con.connect(function(err) {
@@ -28,6 +28,19 @@ app.get('/getAllSenzor/', (req, res) => {
       console.log(result);
       res.send(result)
      });
+})
+
+app.post ('/getSensorData/', (req, res) => {
+  const ID=req.body.id;
+  const data = req.body.data
+  console.log(req.body);
+  var sql = "SELECT * FROM senzori" +ID+ "_" + data ;
+  con.query(sql, [ID],function (err, result) {
+    if (err) throw err;
+    console.log(result)
+    res.send(result)
+
+  });
 })
 
 app.post ('/brisatiSenzor/', (req, res) => {
