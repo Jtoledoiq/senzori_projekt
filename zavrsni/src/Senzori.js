@@ -18,6 +18,10 @@ function Home() {
     const [sensorToBeShown, setSensorToBeShown]=useState([]);
     const [date, setDate] = useState("")
     const [formatedDate, setFormatedDate] = useState("")
+    const [year, setYear] = useState("");
+    const [month, setMonth] = useState("");
+    const [day, setDay] = useState("");
+    const [id,setID] = useState(7);
     /*const dodaj=()=>{
       let lista =[...list];
       if(senzorIme==0)
@@ -43,13 +47,22 @@ function Home() {
       getAllSenzor();
       console.log(allSenzor)
       document.getElementById("graf").style.display= "none";
-
-      getSensorData(7, "20210505")
-
-      const currentDateTime = new Date()
-      const correctMonth =currentDateTime.getMonth()+1
-      setFormatedDate(currentDateTime.getFullYear() + " " + correctMonth + " " + currentDateTime.getDate());
-      setDate(currentDateTime)
+      
+      var dateObj = new Date();
+      setDate(dateObj)
+      var currentMonth = dateObj.getUTCMonth() + 1; //months from 1-12
+      var currentDay = dateObj.getUTCDate();
+      var currentYear = dateObj.getUTCFullYear();
+      var thisDate = dateObj.getFullYear() + '' + ('0' + (dateObj.getMonth()+1)) + ('0' + dateObj.getDate()).slice(-2)+'' ;
+     console.log(thisDate)
+      getSensorData(id, thisDate)
+      
+      //const currentDateTime = new Date()
+      setFormatedDate(currentYear + "/" + currentMonth + "/" + currentDay);
+      setDay(currentDay);
+      setMonth(currentMonth)
+      setYear(currentYear)
+      //setDate(currentDateTime)
   }, []);
 
   const refreshSenzor=()=>{
@@ -164,7 +177,14 @@ const dodati=()=>{
       body: JSON.stringify({id:id, data: data})
   })
   .then(response => response.json())
-  .then(data => setSensorToBeShown(data));
+  .then(data => {
+    console.log(data)
+    setSensorToBeShown(data);
+  })
+  .catch((error)=>{
+    console.log("error")
+   // setSensorToBeShown("error")
+  });
   console.log(sensorToBeShown)
   displaySenzorData()
   
@@ -209,12 +229,14 @@ const displaySenzorData = () => {
     <div className="bodySenzor">
       <div className="menuLists">
         <ul>
+          
         {allSenzor.map((sensor, index) => {
           return(
             <li 
               id={sensor["unique_id"]}
               onClick={()=>{
-                getSensorData(sensor["unique_id"], "20210505")
+                getSensorData(sensor["unique_id"], formatedDate);
+                setID(sensor["unique_id"]);
               }}
             >{sensor["name_senzor"]} {sensor["unique_id"]}</li>
             )
@@ -235,11 +257,26 @@ const displaySenzorData = () => {
         <div className="arrows">
           <div className="arrow-left"
             onClick={()=>{
+        
+              
+               date.setDate(date.getDate() - 1);;
+            
+              //console.log(date)
+              var currentMonth = date.getUTCMonth() + 1; //months from 1-12
+              var currentDay = date.getUTCDate();
+              var currentYear = date.getUTCFullYear();
+              //const currentDateTime = new Date()
+              setFormatedDate(currentYear + "/" + currentMonth + "/" + currentDay);
+              setDay(currentDay);
+              setMonth(currentMonth)
+              setYear(currentYear);
 
-              let currentDateTime = date
-              currentDateTime.setDate(currentDateTime.getDate()-1)
-              setFormatedDate(currentDateTime.getFullYear() + " " + currentDateTime.getMonth() +1 + " " + currentDateTime.getDate());
-              console.log(formatedDate)
+              var thisDate = date.getFullYear() + '' + ('0' + (date.getMonth()+1)) + ('0' + date.getDate()).slice(-2)+'' ;
+              //console.log(thisDate)
+
+              //console.log(id);
+             // console.log(currentYear + "" + currentMonth + "" + currentDay);
+              getSensorData(id, thisDate);
 
             }}
           ></div>
@@ -248,15 +285,24 @@ const displaySenzorData = () => {
           
           onClick={()=>{
 
+        
+            date.setDate(date.getDate() + 1);;
             
-            let currentDateTime = date
-            const correctMonth =currentDateTime.getMonth()
-            currentDateTime.setDate(currentDateTime.getDate())
-            setFormatedDate(currentDateTime.getFullYear() + " " + correctMonth + " " + currentDateTime.getDate());
-            setDate(currentDateTime)
-      
-
-
+            //console.log(date)
+            var currentMonth = date.getUTCMonth() + 1; //months from 1-12
+            var currentDay = date.getUTCDate();
+            var currentYear = date.getUTCFullYear();
+            //const currentDateTime = new Date()
+            setFormatedDate(currentYear + "/" + currentMonth + "/" + currentDay);
+            setDay(currentDay);
+            setMonth(currentMonth)
+            setYear(currentYear)
+            var thisDate = date.getFullYear() + '' + ('0' + (date.getMonth()+1)) + ('0' + date.getDate()).slice(-2)+'' ;
+            //console.log(thisDate)
+              
+            //console.log(id);
+            
+              getSensorData(id, thisDate)
           }}></div>
         </div>
         <div id="lista">

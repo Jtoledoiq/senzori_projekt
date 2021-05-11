@@ -36,9 +36,14 @@ app.post ('/getSensorData/', (req, res) => {
   console.log(req.body);
   var sql = "SELECT * FROM senzori" +ID+ "_" + data ;
   con.query(sql, [ID],function (err, result) {
-    if (err) throw err;
-    console.log(result)
-    res.send(result)
+    if (err) {
+     //console.log(err);
+     console.log("there is no table for this date") 
+     res.send("err")
+    } else{
+      console.log(result)
+      res.send(result)
+    };
 
   });
 })
